@@ -1,8 +1,8 @@
-import re
+import regex as re
 import nltk
 import math
-from tokenizer_rule import RuleBasedTokenizer
-from sentence_splitter import SentenceSplitter
+from src.tokenizer_rule import RuleBasedTokenizer
+from src.sentence_splitter import SentenceSplitter
 
 
 class StopwordEliminator:
@@ -11,10 +11,10 @@ class StopwordEliminator:
 
     @staticmethod
     def load_stopwords():
-        with open("stopwords.txt", "r", encoding="utf-8-sig") as f:
+        with open("data/stopwords.txt", "r", encoding="utf-8-sig") as f:
             static_stopwords = f.read()
 
-        with open("dynamic_stopword_list.txt", "r", encoding="utf-8-sig") as f:
+        with open("data/dynamic_stopword_list.txt", "r", encoding="utf-8-sig") as f:
             dynamic_stopwords = f.read()
 
         return set(static_stopwords.split("\n")), set(dynamic_stopwords.split("\n"))

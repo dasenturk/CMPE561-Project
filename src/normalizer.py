@@ -1,7 +1,7 @@
-import re
+import regex as re
 import nltk
-from tokenizer_rule import RuleBasedTokenizer
-from sentence_splitter import SentenceSplitter
+from src.tokenizer_rule import RuleBasedTokenizer
+from src.sentence_splitter import SentenceSplitter
 
 
 class Normalizer:
@@ -11,7 +11,7 @@ class Normalizer:
 
     @staticmethod
     def create_normalization_dictionaries():
-        with open("../data/Normalization_Lexicon.txt", "r", encoding="utf-8-sig") as f:
+        with open("data/Normalization_Lexicon.txt", "r", encoding="utf-8-sig") as f:
             normalization_lexicon = f.readlines()
 
         normalization_dictionary_1 = {}
@@ -24,7 +24,7 @@ class Normalizer:
             candidates = line[1].strip().split(",")
             normalization_dictionary_1[line[0]] = candidates
 
-        with open("../data/Normalization_Lexicon_2.txt", "r", encoding="utf-8-sig") as f:
+        with open("data/Normalization_Lexicon_2.txt", "r", encoding="utf-8-sig") as f:
             normalization_lexicon = f.readlines()
 
         normalization_dictionary_2 = {}
@@ -40,7 +40,7 @@ class Normalizer:
 
     @staticmethod
     def load_corpus():
-        with open("tr_corpus_10M.txt", "r", encoding="utf-8-sig") as f:
+        with open("data/tr_corpus_10M.txt", "r", encoding="utf-8-sig") as f:
             corpus = f.read()
         return corpus
 
@@ -68,11 +68,9 @@ class Normalizer:
 
         for i in range(len(tokens)):
             if (tokens[i] == "<s>" or tokens[i] == "<\s>"):
-                print(tokens[i])
                 continue
 
             elif tokens[i] in self.normalization_dicrionary_2:
-                print(tokens[i])
                 normalized_tokens.append(self.normalization_dicrionary_2[tokens[i]])
 
             elif tokens[i] in self.normalization_dicrionary_1:
@@ -129,14 +127,10 @@ class Normalizer:
                 best_candidate, value = self.find_max_index(bigram_final_probabilities)
                 if value != 0:
                     normalized_tokens.append(self.normalization_dicrionary_1[tokens[i]][best_candidate])
-                    print(tokens[i])
-                    print(self.normalization_dicrionary_1[tokens[i]][best_candidate])
+                    
                 else:
                     best_candidate, value = self.find_max_index(unigram_counts)
                     normalized_tokens.append(self.normalization_dicrionary_1[tokens[i]][best_candidate])
-
-                    print(tokens[i])
-                    print(self.normalization_dicrionary_1[tokens[i]][best_candidate])
 
             else:
                 normalized_tokens.append(tokens[i])

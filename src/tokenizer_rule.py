@@ -1,7 +1,7 @@
-import re
+import regex as re
 import nltk
 from typing import Dict, Set, List
-from sentence_splitter import SentenceSplitter
+from src.sentence_splitter import SentenceSplitter
 
 
 class RuleBasedTokenizer:
@@ -17,7 +17,7 @@ class RuleBasedTokenizer:
         }
 
         abbreviation_set = set()
-        with open('../data/abbreviation_list.txt', 'r', encoding="utf-8") as f:
+        with open('data/abbreviation_list.txt', 'r', encoding="utf-8-sig") as f:
             lines = list(f.readlines())
             for line in lines:
                 if len(line.strip()) > 0:
@@ -30,7 +30,7 @@ class RuleBasedTokenizer:
     @staticmethod
     def load_mwe_lexicon() -> Set[str]:
         mwe_lexicon = set()
-        with open("../data/MWE_Lexicon.txt", "r", encoding="utf-8-sig") as f:
+        with open("data/MWE_Lexicon.txt", "r", encoding="utf-8-sig") as f:
             lines = f.readlines()
             for i in range(len(lines)):
                 if (i == len(lines) - 1):
@@ -144,6 +144,9 @@ class RuleBasedTokenizer:
         text = self.preprocess(text)
 
         split_points = self.find_split_points(text)
+        if(len(split_points) == 0): 
+            return [text]
+        
         tokens = []
         for i in range(len(split_points)):
             if (i == 0):

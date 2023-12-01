@@ -1,4 +1,4 @@
-import re
+import regex as re
 from typing import Dict, Set, List
 import pandas as pd
 import numpy as np
@@ -21,7 +21,7 @@ class SentenceSplitter:
         }
 
         abbreviation_set = set()
-        with open('../data/abbreviation_list.txt', 'r', encoding="utf-8") as f:
+        with open('data/abbreviation_list.txt', 'r', encoding="utf-8") as f:
             lines = list(f.readlines())
             for line in lines:
                 if len(line.strip()) > 0:
@@ -70,7 +70,7 @@ class SentenceSplitter:
     def rule_based_split(self, text):
         abbrev_pattern = '|'.join(re.escape(abbr) for abbr in self.abbreviations) + r'|\d+'
         pattern = rf"(?<!\b(?:{abbrev_pattern}))(?<!\.\.)[.?!]\s+"
-        sentences = re.split(pattern, text, flags=re.UNICODE)
+        sentences = sentences = re.split(pattern, text, flags=re.UNICODE)
         return sentences
 
     def ml_based_split(self, text):
