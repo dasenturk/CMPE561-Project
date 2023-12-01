@@ -20,7 +20,7 @@ class StopwordEliminator:
         return set(static_stopwords.split("\n")), set(dynamic_stopwords.split("\n"))
 
     def remove_stopwords(self, document, stopword_type):
-        list_of_tokens = RuleBasedTokenizer().tokenize(document)
+        list_of_tokens = RuleBasedTokenizer().tokenize_without_punctuations(document, lower = False)
         stopword_removed = []
         stopwords = self.static_stopwords if stopword_type == 'static' else self.dynamic_stopwords
         for token in list_of_tokens:
