@@ -46,9 +46,8 @@ if __name__ == '__main__':
     print(text)
 
     print('------Stemming------')
-    #text = SentenceSplitter().rule_based_split(longer_corpus)
     
-    text= RuleBasedTokenizer().tokenize(longer_corpus)
+    text= RuleBasedTokenizer().tokenize_without_punctuations(longer_corpus, lower = False)
     stems = [Stemmer().stem(word) for word in text]
     print(stems)
 
