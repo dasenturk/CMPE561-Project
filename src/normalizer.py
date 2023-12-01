@@ -67,7 +67,7 @@ class Normalizer:
         normalized_tokens = []
 
         for i in range(len(tokens)):
-            if (tokens[i] == "<s>" or tokens[i] == "<\s>"):
+            if (tokens[i] == "<s>" or tokens[i] == "<\s>" or tokens[i] == ""):
                 continue
 
             elif tokens[i] in self.normalization_dicrionary_2:

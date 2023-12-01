@@ -168,14 +168,17 @@ class RuleBasedTokenizer:
                 final_tokens.append(token)
         return final_tokens
 
-    def tokenize_without_punctuations(self, text):
+    def tokenize_without_punctuations(self, text, lower = True):
         tokens = self.tokenize(text)
         new_tokens = []
         punctuations = set(
             ["?", "!", "…", ":", ",", ";", ".", '"', "'", "\\", "/", "(", ")", "[", "]", "‘", "’", "“", "”"])
         for token in tokens:
             if token not in punctuations:
-                new_tokens.append(token)
+                if lower == False:
+                    new_tokens.append(token)
+                else:
+                    new_tokens.append(token.lower())
         return new_tokens
 
     def bigram_ready_tokenize(self, text):

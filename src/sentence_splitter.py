@@ -70,7 +70,7 @@ class SentenceSplitter:
     def rule_based_split(self, text):
         abbrev_pattern = '|'.join(re.escape(abbr) for abbr in self.abbreviations) + r'|\d+'
         pattern = rf"(?<!\b(?:{abbrev_pattern}))(?<!\.\.)[.?!]\s+"
-        sentences = sentences = re.split(pattern, text, flags=re.UNICODE)
+        sentences = re.split(pattern, text, flags=re.UNICODE)
         return sentences
 
     def ml_based_split(self, text):
